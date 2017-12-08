@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="report_collection_document">
+			<t t-call="report.external_layout">
+				<div class="page">
+                    <div class="row">
+                        <div class="col-lg-4" style="float: left !important; width: 30% !important;">
+                            <div class="row">
+                                <!-- <table class="text-right" style="font-size: 9px !important; border: 1px solid transparent !important;">
+                                    <thead>
+                                        <th width="80%"></th>
+                                        <th width="20%"></th>
+                                    </thead>
+
+                                    <tbody>
+                                        <t t-set="price_total" t-value="0"/>
+                                        <t t-foreach="o.invoice_line_ids" t-as="l">
+                                            <t t-set="price_total" t-value="price_total+l.price_subtotal"/>
+                                        </t>
+
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table> -->
+                                <div class="row">
+                                    <!-- date -->
+                                    <!-- <span t-field="o.date_invoice" t-field-options='{"format": "MM/d/y"}'/> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8" style="font-size: 10px !important; float: left !important; width: 70% !important; padding-top: 75px !important;">
+                            <div class="row text-right" style="padding-right: 75px !important;">
+                                <!-- date -->
+                                <span t-field="o.date_invoice" t-field-options='{"format": "MM/d/y"}'/>
+                            </div>
+
+                            <div class="row" style="padding-top: 10px !important; padding-left: 65px !important;">
+                                <!-- customer name -->
+                                <p t-field="o.partner_id"/>
+                            </div>
+
+                            <div class="row">
+                                <div style="padding-top: 3px !important; padding-left: 50px !important;">
+                                    <!-- TIN -->
+                                    <p t-field="o.partner_id.vat"/>
+                                </div>
+
+                                <div>
+                                    <!-- address -->
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 50px !important; padding-left: 60px !important;">
+                                <!-- amount (words) -->
+                                <span> <t t-esc="o.amount_to_text(o.amount_total, o.currency_id)"/> only</span>
+                            </div>
+
+                            <div class="row">
+                                <!-- amount -->
+                                <div style="padding-top: 3px !important; padding-left: 380px !important;">
+                                    <span t-esc="o.amount_total"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			</t>
+		</template>
+
+		<template id="report_collection">
+			<t t-call="report.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="custom_sales_reports.report_collection_document" t-lang="o.partner_id.lang"/>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>

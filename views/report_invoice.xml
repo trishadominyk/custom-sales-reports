@@ -1,0 +1,86 @@
+<odoo>
+    <data>
+        <template id="report_invoice_document_inherit" inherit_id="account.report_invoice_document">
+            <xpath expr="//t[@t-call='report.external_layout']" position="replace">
+                <div class="header">
+                    <div class="row">
+                        <br/>
+                        <div class="col-xs-4" t-if="o.date_invoice" style="font-size: 10px !important;">
+                            <p t-field="o.date_invoice"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="page">
+                    <div class="row">
+                        <div name="invoice_address" style="display: none;">
+                            <span t-if="o.partner_id.vat">TIN: <span t-field="o.partner_id.vat"/></span>
+                            <div name="reference" t-if="o.reference and o.type == 'in_invoice'">
+                                <p t-field="o.reference"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <table style="font-size: 9px !important; border: 1px solid transparent !important;">
+                            <thead>
+                                <tr>
+                                    <th width="1%"></th>
+                                    <th width="1%"></th>
+                                    <th width="96%"></th>
+                                    <th width="1%"></th>
+                                    <th width="1%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="price_total" t-value="0"/>
+                                <t t-set="row_ctr" t-value="9"/>
+
+                                <t t-foreach="o.invoice_line_ids" t-as="l">
+                                    <tr class="text-right">
+                                        <t t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">
+                                            <td style="padding: 0px 5px; height: 23px !important; border: 1px solid transparent !important;">
+                                                <span t-field="l.quantity"/>
+                                            </td>
+                                            <td style="padding: 0px 5px; height: 23px !important; border: 1px solid transparent !important;">
+                                                <span t-field="l.uom_id"/>
+                                            </td>
+                                            <td class="text-left" style="padding: 0px 5px; height: 23px !important; border: 1px solid transparent !important;">
+                                                <span t-field="l.name"/>
+                                            </td>
+                                            <td class="text-left" style="padding: 0px 5px; height: 23px !important; border: 1px solid transparent !important;">
+                                                <span t-field="l.price_unit"/>
+                                            </td>
+                                            <td class="text-left" style="padding: 0px 5px; height: 23px !important; border: 1px solid transparent !important;">
+                                                <span t-field="l.price_subtotal"/>
+                                            </td>
+                                        </t>
+
+                                        <t t-set="price_total" t-value="price_total+l.price_subtotal"/>
+                                        <t t-set="row_ctr" t-value="row_ctr-1"/>
+                                    </tr>
+
+                                    <!-- total every 9 items -->
+                                    <t t-if="(l_index+1) % 9 == 0 or (l_index+1) == len(o.invoice_line_ids)">
+                                        <tr t-foreach="range(row_ctr)" t-as="r">
+                                            <td colspan="5" style="border: 1px solid transparent !important; height: 23px !important;"></td>
+                                        </tr>
+
+                                        <tr style="page-break-after: always !important;" class="text-right">
+                                            <td style="border: 1px solid transparent !important; height: 23px !important;" colspan="5">
+                                                <strong><span style="height: 10px !important;" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;:o.currency_id}" t-esc="price_total"/></strong>
+                                            </td>
+                                        </tr>
+
+                                        <t t-set="price_total" t-value="0"/>
+                                        <t t-set="row_ctr" t-value="9"/>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<report
+		    id="charges_sales_invoice"
+		    model="account.invoice"
+		    string="Charges Invoice"
+		    report_type="qweb-pdf"
+		    name="account.report_invoice"
+		    file="account.report_invoice"
+		    attachment_use="True"
+		    attachment="(object.state in ('paid')) and
+		        ('INV'+(object.number or '').replace('/','')+'.pdf')"
+		/>
+
+		<report
+			id="collection_report"
+			model="account.invoice"
+			string="Collection Receipt"
+			report_type="qweb-pdf"
+			name="custom_sales_reports.report_collection"
+			file="custom_sales_reports.report_collection"
+			attachment_use="False"
+			menu="True"
+		/>
+	</data>
+</odoo>

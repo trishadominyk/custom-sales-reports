@@ -1,0 +1,19 @@
+<odoo>
+	<data>
+		<template id="external_layout_header_inherit" inherit_id="report.external_layout_header">
+            <xpath expr="//div[@class='header']" position="replace">
+                <div class="header">
+                	<div class="row">
+                		<div name="company_address"></div>
+                	</div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="external_layout_footer_inherit" inherit_id="report.external_layout_footer">
+            <xpath expr="//div[@class='footer']" position="replace">
+                <div class="footer"></div>
+            </xpath>
+        </template>
+	</data>
+</odoo>
