@@ -2,7 +2,7 @@
 <odoo>
 	<data>
 		<template id="report_collection_document">
-			<t t-call="report.external_layout">
+			<!-- <t t-call="report.external_layout"> -->
 				<div class="page">
                     <div class="row">
                         <div class="col-lg-4" style="float: left !important; width: 30% !important;">
@@ -68,7 +68,13 @@
                         </div>
                     </div>
                 </div>
-			</t>
+
+                <div class="footer">
+                	<div class="row">
+                		<span t-esc="o.create_uid.name"/>
+                	</div>
+                </div>
+			<!-- </t> -->
 		</template>
 
 		<template id="report_collection">
