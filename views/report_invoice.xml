@@ -80,6 +80,12 @@
                         </table>
                     </div>
                 </div>
+                
+                <div class="footer">
+                    <div class="row text-right" style="padding-right: 120px !important; font-size: 10px !important;">
+                        <span t-esc="o.create_uid.name"/>
+                    </div>
+                </div>
             </xpath>
         </template>
     </data>
